@@ -1,0 +1,99 @@
+@import "../../../colors";
+
+@mixin buttonVariant($currentColor, $font-color, $transition-duration) {
+  transition-duration: $transition-duration;
+  transition-timing-function: ease;
+  &.outlined {
+    border: 2px solid $currentColor;
+    color: $currentColor;
+    background-color: transparent;
+    transition-property: border-color, color;
+
+    &:disabled {
+      border-color: rgba($currentColor, 0.3);
+      color: rgba($currentColor, 0.3);
+    }
+
+    @media (min-width: 1024px) {
+      &:hover:not(:disabled) {
+        border-color: rgba($currentColor, 0.8);
+        color: rgba($currentColor, 0.8);
+      }
+    }
+  }
+  &.contained {
+    border: 2px solid $currentColor;
+    background-color: $currentColor;
+    color: $font-color;
+    transition-property: background-color, border, color;
+
+    &:disabled {
+      border-color: rgba($currentColor, 0.3);
+      background-color: rgba($currentColor, 0.3);
+      color: rgba($font-color, 0.3);
+    }
+
+    @media (min-width: 1024px) {
+      &:hover:not(:disabled) {
+        border-color: rgba($currentColor, 0.8);
+        background-color: rgba($currentColor, 0.8);
+        color: rgba($font-color, 0.8);
+      }
+    }
+  }
+  &.text {
+    border: 2px solid transparent;
+    background-color: transparent;
+    color: $currentColor;
+    transition-property: color;
+
+    &:disabled {
+      color: rgba($currentColor, 0.3);
+    }
+
+    @media (min-width: 1024px) {
+      &:hover:not(:disabled) {
+        color: rgba($currentColor, 0.8);
+      }
+    }
+  }
+}
+
+$duration: 0.25s;
+.buttonBase {
+  font-size: 12px;
+  min-width: 130px;
+}
+
+.buttonColorGray {
+  @include buttonVariant($base-gray-lighter, $base-black, $duration);
+}
+
+.buttonColorBlue {
+  @include buttonVariant($base-blue, $base-white, $duration);
+}
+
+.buttonColorBlack {
+  @include buttonVariant($base-black, $base-white, $duration);
+}
+
+.buttonColorGold {
+  @include buttonVariant($base-gold, $base-black, $duration);
+}
+.buttonColorWhite {
+  @include buttonVariant($base-white, $base-black, $duration);
+}
+
+.buttonColorPrimary {
+  @include buttonVariant($base-color, $base-white, $duration);
+}
+
+.buttonColorSecondary {
+  @include buttonVariant($base-white, $base-white, $duration);
+}
+
+.buttonSizeSmall {
+  @include buttonVariant($base-color, $base-white, $duration);
+  min-width: 0;
+  padding: 8px 40px !important;
+}
