@@ -1,7 +1,9 @@
 import { Loading } from "~/components/icons/Loading";
+import { QuestionMark } from "~/components/icons/QuestionMark";
 
 export const icons = {
-  loading:Loading
+  loading:Loading,
+  questionMark: QuestionMark
 } as const;
 
 

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "./node_modules/react-tailwindcss-select/dist/index.esm.js"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "./node_modules/react-tailwindcss-select/dist/index.esm.js",'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontFamily: {
       'body': ['Montserrat']
@@ -64,5 +64,7 @@ module.exports = {
       "3xl": "2200px"
     }
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ]
 };
