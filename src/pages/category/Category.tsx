@@ -217,8 +217,11 @@ const Category = () => {
     }
   }
 
+  console.log(basicInfo);
+
   return (
     <div className="flex flex-col w-[80%] self-center mb-7">
+      <div className="z-1 fixed right-0 w-[500px] h-[200px] bg-white border-black border-2"></div>
 
       {/*--Základní údaje o zakázce--*/}
       <h2 className="text-3xl font-extrabold border-b-2 pb-2 mb-2">Základní údaje o zakázce</h2>
@@ -248,14 +251,15 @@ const Category = () => {
       <h2 className="text-3xl font-extrabold border-b-2 pb-2 mb-4">Specifikace kategorie 0</h2>
       {Object.keys(categoryZeroInputs).map((name) =>(
         <div className="flex items-center gap-3 border-b-[1px] pb-2 mb-4">
-          <Tooltip className="rounded-none text-m" content={categoryDescriptions.full[name as keyof typeof categoryZeroInputs]} style="light" animation="duration-300">
-            <Icon name="questionMark" size={ 30 }/>
-          </Tooltip>
+
           <Switch
             isOn={categoryZeroInputs[name as keyof typeof categoryZeroInputs]}
             handleToggle={() => setCategoryZeroInputs({...categoryZeroInputs, [name as keyof typeof categoryZeroInputs]:!categoryZeroInputs[name as keyof typeof categoryZeroInputs]})}
           />
           <span className="text-xl font-bold mr-5">{categoryDescriptions.short[name as keyof typeof categoryZeroInputs]}</span>
+          <Tooltip className="rounded-none text-m" content={categoryDescriptions.full[name as keyof typeof categoryZeroInputs]} style="light" animation="duration-300">
+            <Icon name="questionMark" size={ 30 }/>
+          </Tooltip>
         </div>
       ))}
       {/*-----------------------------*/}
@@ -265,9 +269,7 @@ const Category = () => {
       <h2 className="text-3xl font-extrabold border-b-2 pb-2 mb-2 pt-4">Údaje o stavbě</h2>
       {Object.keys(buildingInfo).map((name) =>(
         <div className="flex items-center gap-3 border-b-[1px] pb-2 mb-4">
-          <Tooltip className="rounded-none text-m" content={categoryDescriptions.full[name as keyof typeof buildingInfo]} style="light" animation="duration-300">
-            <Icon name="questionMark" size={ 30 }/>
-          </Tooltip>
+
           {(name === "sleepPlaces" || name === "asistancePlaces" || name === "publicPlaces") ? <><Switch
             isOn={buildingInfo[name as keyof typeof buildingInfo] as boolean}
             handleToggle={() => setBuildingInfo({...buildingInfo, [name as keyof typeof buildingInfo]:!buildingInfo[name as keyof typeof buildingInfo]})}
@@ -280,7 +282,9 @@ const Category = () => {
             {name === "area" || name === "buildingHeight" ? "m²" : <></>}
             <label htmlFor={name} className={`block mb-2 text-xl font-semibold text-gray-900`}>{categoryDescriptions.full[name as keyof typeof buildingInfo]}</label>
           </>}
-
+          <Tooltip className="rounded-none text-m" content={categoryDescriptions.full[name as keyof typeof buildingInfo]} style="light" animation="duration-300">
+            <Icon name="questionMark" size={ 30 }/>
+          </Tooltip>
         </div>
       ))}
       {/*----------------------------*/}
@@ -289,10 +293,11 @@ const Category = () => {
       <h2 className="text-3xl font-extrabold border-b-2 pb-2 mb-2 pt-4">Specifikace stavby</h2>
       {Object.keys(buildingSpecification).map((name) =>(
         <div className="flex items-center gap-3 border-b-[1px] pb-2 mb-4">
+
+          {generateInputFields(name)}
           <Tooltip className="rounded-none text-m" content={categoryDescriptions.full[name as keyof typeof buildingSpecification]} style="light" animation="duration-300">
             <Icon name="questionMark" size={ 30 }/>
           </Tooltip>
-          {generateInputFields(name)}
         </div>
       ))}
       {/*--------------------------------*/}
