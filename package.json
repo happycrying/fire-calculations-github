@@ -13,6 +13,7 @@
     "format": "npm run prettier:fix && npm run lint:fix"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.1.14",
     "classnames": "^2.3.2",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.6.4",

@@ -1,0 +1,24 @@
+{
+  "full": {
+    "pV": "Výpočtové požární zatížení",
+    "width": "Šířka otvoru",
+    "height": "Výška otvoru",
+    "p0": "Procento otevřenosti",
+    "qCrit": "Kritická hustota tepelného toku",
+    "system": "Konstrukční systém",
+    "d": "Vzdálenost odstupové vzdálenosti v přímém směru ve středu otvoru",
+    "_d": "Vzdálenost odstupové vzdálenosti v přímém směru v kraji otvoru",
+    "_ds": "Vzdálenost kolmé odstupové vzdálenosti v kraji otvoru"
+  },
+  "short": {
+    "pV": "Výpočtové požární zatížení",
+    "width": "Šířka otvoru",
+    "height": "Výška otvoru",
+    "p0": "Procento otevřenosti",
+    "qCrit": "Kritická hustota tepelného toku",
+    "system": "Konstrukční systém",
+    "d": "Vzdálenost odstupové vzdálenosti v přímém směru ve středu otvoru",
+    "_d": "Vzdálenost odstupové vzdálenosti v přímém směru v kraji otvoru",
+    "_ds": "Vzdálenost kolmé odstupové vzdálenosti v kraji otvoru"
+  }
+}

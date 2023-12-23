@@ -3,8 +3,10 @@ import Switch from '~/components/ui/Switch/Switch';
 import { Tooltip } from 'flowbite-react';
 import categoryDescriptions from './categoryDescriptions.json';
 import { Icon } from '~/components/icons';
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import CategoryPDF from "~/components/documents/CategoryPDF";
 
-interface ICategoryZeroInputs {
+export interface ICategoryZeroInputs {
   a: boolean;
   b: boolean;
   c: boolean;
@@ -22,13 +24,14 @@ interface ICategoryZeroInputs {
   p: boolean;
 }
 
-interface IBasicInfo {
+export interface IBasicInfo {
   name: string;
   place: string;
   investor: string;
+  windowName?: string;
 }
 
-interface IBuildingInformation {
+export interface IBuildingInformation {
   area: number;
   aboveground: number;
   buildingHeight: number;
@@ -43,7 +46,7 @@ interface IBuildingInformation {
 type PresentValueType = { present: boolean; value: number };
 type BigTanksType = { present: boolean; category1: number; category2: number };
 
-interface IBuildingSpecification {
+export interface IBuildingSpecification {
   forLiving: boolean;
   placesUnderground: boolean;
   projPeople: number;
@@ -158,19 +161,19 @@ const Category = () => {
           <input
             type='number'
             id={name}
-            onChange={(e) =>
+            onChange={(e) => {
               setBuildingSpecification({
                 ...buildingSpecification,
-                [name as keyof typeof buildingSpecification]: e.target.value,
-              })
+                [name as keyof typeof buildingSpecification]: +e.target.value,
+              })}
             }
             className={`bg-gray-50 border-gray-300 border w-[10%] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
             required
           />
           osob
-          <label htmlFor={name} className={`block mb-2 text-xl font-semibold text-gray-900`}>
+          <span className={`block mb-2 text-xl font-semibold text-gray-900`}>
             {categoryDescriptions.full[name as keyof typeof buildingSpecification]}
-          </label>
+          </span>
         </>
       );
     } else if (
@@ -435,9 +438,17 @@ const Category = () => {
     <div className='flex flex-col w-[80%] self-center mb-7'>
       <div className='z-1 fixed right-0 top-[30vh] w-[20vw] h-[20vh] bg-white border-black border-2'>
         <p className='3xl:text-5xl text-2xl p-2'>
-          Třída využití: {_class !== -1 ? _class : 'Nestanovuje se'}
+          Třída využití: {_class !== -1 ? _class : '---'}
         </p>
         <p className='3xl:text-5xl text-2xl p-2'>Kategorie {category}</p>
+        <PDFDownloadLink document={<CategoryPDF {...categoryZeroInputs} {...buildingInfo} {...basicInfo} {...buildingSpecification} _class={_class} category={category}/>} fileName="Classification">
+          {({loading}) =>
+            (loading
+                ? <button className="ml-[20%] text-2xl border-2 rounded-xl p-2 border-black" disabled={true}>Loading PDF...</button>
+                : <button className="ml-[20%] text-2xl border-2 rounded-xl p-2 border-black">Stáhnout PDF protokol</button>
+            )
+          }
+        </PDFDownloadLink>
       </div>
 
       {/*--Základní údaje o zakázce--*/}
@@ -455,14 +466,14 @@ const Category = () => {
               type='text'
               id='nazev_akce'
               onChange={(e) => setBasicInfo({ ...basicInfo, name: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
               required
             />
           </div>
           <div>
             <label
               htmlFor='last_name'
-              className='block mb-2 text-sm font-semibold text-gray-900 dark:text-white'
+              className='block mb-2 text-sm font-semibold text-gray-900'
             >
               Místo akce
             </label>
@@ -470,7 +481,7 @@ const Category = () => {
               type='text'
               id='last_name'
               onChange={(e) => setBasicInfo({ ...basicInfo, place: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
               required
             />
           </div>
