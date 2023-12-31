@@ -580,14 +580,14 @@ const CategoryPDF = (props: ICategoryPDFProps) => (
           </View>
           <View style={styles.tableKatsPart}>
             <View style={styles.tableClassSection}>
-              <Text style={styles.tableClassContentText}>
-                Stavba, ve které se vyskytují látky s akutní toxicitou:
-              </Text>
-              <Text style={styles.tableClassContentInput}>{props.toxic ? "ANO" : "NE"}</Text>
+              <Text style={styles.tableClassContentText}>Stavba, ve které se vyskytují látky s akutní toxicitou: [kg]:</Text>
+              <Text style={styles.tableClassContentInput}>{props.toxicTanks.present ? "ANO" : "NE"}</Text>
             </View>
             <View style={styles.tableClassSection}>
-              <Text style={styles.tableClassContentText}>Velkoobjemového skladovací nádrže pro hořlavé kapaliny [m&sup3;]:</Text>
-              <Text style={styles.tableClassContentInput}>{props.bigTanks.present ? "ANO" : "NE"}</Text>
+              <Text style={styles.tableClassContentText}>
+                Velkoobjemového nádrže pro hořlavé kapaliny [m&sup3;]:
+              </Text>
+              <Text style={styles.tableClassContentInput}>{props.bigTanks.present ? props.bigTanks.value : "NE"}</Text>
             </View>
           </View>
           <View style={styles.tableKatsPart}>
@@ -595,7 +595,7 @@ const CategoryPDF = (props: ICategoryPDFProps) => (
               <Text style={styles.tableClassContentText}>
                 Kategorie I [kg]
               </Text>
-              <Text style={styles.tableClassContentInput}>{ props.bigTanks.present ? props.bigTanks.category1 : 0}</Text>
+              <Text style={styles.tableClassContentInput}>{ props.toxicTanks.present ? props.toxicTanks.category1 : 0}</Text>
             </View>
             <View style={styles.tableClassSection}>
               <Text style={styles.tableClassContentText}>Sklad střeliva [ks]: </Text>
@@ -607,7 +607,7 @@ const CategoryPDF = (props: ICategoryPDFProps) => (
               <Text style={styles.tableClassContentText}>
                 Kategorie II [kg]
               </Text>
-              <Text style={styles.tableClassContentInput}>{props.bigTanks.present ? props.bigTanks.category2 : 0}</Text>
+              <Text style={styles.tableClassContentInput}>{props.toxicTanks.present ? props.toxicTanks.category2 : 0}</Text>
             </View>
             <View style={styles.tableClassSection}>
               <Text style={styles.tableClassContentText}>Stavba určená k nakládání s výbušninami:</Text>

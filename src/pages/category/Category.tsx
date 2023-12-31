@@ -44,7 +44,7 @@ export interface IBuildingInformation {
 }
 
 type PresentValueType = { present: boolean; value: number };
-type BigTanksType = { present: boolean; category1: number; category2: number };
+type ToxicTanksType = { present: boolean; category1: number; category2: number };
 
 export interface IBuildingSpecification {
   forLiving: boolean;
@@ -55,12 +55,12 @@ export interface IBuildingSpecification {
   waterSource: boolean;
   communication: boolean;
   pyrotechnic: boolean;
-  toxic: boolean;
+  bigTanks: PresentValueType
   flammableLiquids: PresentValueType;
   flammableGas: PresentValueType;
   gasTank: PresentValueType;
   highwayTunnel: PresentValueType;
-  bigTanks: BigTanksType;
+  toxicTanks: ToxicTanksType;
   ammunition: PresentValueType;
   explosives: boolean;
   shelter: boolean;
@@ -124,12 +124,12 @@ const Category = () => {
     waterSource: false,
     communication: false,
     pyrotechnic: false,
-    toxic: false,
+    bigTanks: { present: false, value: 0 },
     flammableLiquids: { present: false, value: 0 },
     flammableGas: { present: false, value: 0 },
     gasTank: { present: false, value: 0 },
     highwayTunnel: { present: false, value: 0 },
-    bigTanks: { present: false, category1: 0, category2: 0 },
+    toxicTanks: { present: false, category1: 0, category2: 0 },
     ammunition: { present: false, value: 0 },
     explosives: false,
     shelter: false,
@@ -150,8 +150,8 @@ const Category = () => {
   const convertToPresentValueType = (name: string) => {
     return buildingSpecification[name as keyof typeof buildingSpecification] as PresentValueType;
   };
-  const convertToBigTanksType = (name: string) => {
-    return buildingSpecification[name as keyof typeof buildingSpecification] as BigTanksType;
+  const convertToToxicTanksType = (name: string) => {
+    return buildingSpecification[name as keyof typeof buildingSpecification] as ToxicTanksType;
   };
 
   const generateInputFields = (name: string) => {
@@ -199,7 +199,7 @@ const Category = () => {
     } else if (
       typeof buildingSpecification[name as keyof typeof buildingSpecification] === 'object'
     ) {
-      if (name !== 'bigTanks') {
+      if (name !== 'toxicTanks') {
         return (
           <>
             <Switch
@@ -243,14 +243,14 @@ const Category = () => {
         return (
           <>
             <Switch
-              isOn={convertToBigTanksType(name).present}
+              isOn={convertToToxicTanksType(name).present}
               handleToggle={() =>
                 setBuildingSpecification({
                   ...buildingSpecification,
                   [name as keyof typeof buildingSpecification]: {
-                    present: !convertToBigTanksType(name).present,
-                    category1: convertToBigTanksType(name).category1,
-                    category2: convertToBigTanksType(name).category2,
+                    present: !convertToToxicTanksType(name).present,
+                    category1: convertToToxicTanksType(name).category1,
+                    category2: convertToToxicTanksType(name).category2,
                   },
                 })
               }
@@ -264,19 +264,19 @@ const Category = () => {
                     setBuildingSpecification({
                       ...buildingSpecification,
                       [name as keyof typeof buildingSpecification]: {
-                        present: convertToBigTanksType(name).present,
+                        present: convertToToxicTanksType(name).present,
                         category1: e.target.value,
-                        category2: convertToBigTanksType(name).category2,
+                        category2: convertToToxicTanksType(name).category2,
                       },
                     })
                   }
                   className={`${
-                    convertToBigTanksType(name).present
+                    convertToToxicTanksType(name).present
                       ? 'bg-gray-50 border-gray-300'
                       : 'bg-gray-400 border-gray-300'
                   } border w-1/2 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
                   required
-                  disabled={!convertToBigTanksType(name).present}
+                  disabled={!convertToToxicTanksType(name).present}
                 />
                 <span className='text-m font-semibold w-1/3'>Kategorie 1</span>
               </div>
@@ -288,19 +288,19 @@ const Category = () => {
                     setBuildingSpecification({
                       ...buildingSpecification,
                       [name as keyof typeof buildingSpecification]: {
-                        present: convertToBigTanksType(name).present,
-                        category1: convertToBigTanksType(name).category1,
+                        present: convertToToxicTanksType(name).present,
+                        category1: convertToToxicTanksType(name).category1,
                         category2: e.target.value,
                       },
                     })
                   }
                   className={`${
-                    convertToBigTanksType(name).present
+                    convertToToxicTanksType(name).present
                       ? 'bg-gray-50 border-gray-300'
                       : 'bg-gray-400 border-gray-300'
                   } border w-1/2 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
                   required
-                  disabled={!convertToBigTanksType(name).present}
+                  disabled={!convertToToxicTanksType(name).present}
                 />
                 <span className='text-m font-semibold w-1/3'>Kategorie 2</span>
               </div>
@@ -353,85 +353,66 @@ const Category = () => {
   };
 
   const calculateCategory = () : number => {
-    if(buildingInfo.buildingHeight <= 9 && buildingSpecification.projPeople <= 100){
-      if (
-        buildingInfo.area <= 200
-        ||
-        (buildingInfo.area <= 500 &&
-          _class === 1 &&
-          buildingInfo.underground <= 1 &&
-          buildingInfo.aboveground <= 2)
-        ||
-        (buildingInfo.area <= 500 &&
-          _class === 1 &&
-          buildingInfo.underground <= 1 &&
-          buildingInfo.aboveground <= 2)
-        ||
-        (buildingInfo.area <= 600 &&
-          _class === 2 &&
-          buildingInfo.underground === 0 &&
-          buildingInfo.aboveground <= 1 &&
-          buildingInfo.oneFloorHeight <= 12)
-        ||
-        buildingSpecification.forLiving
-        ||
-        (buildingInfo.area <= 1000 &&
-          _class === 1 &&
-          buildingInfo.aboveground <= 1 &&
-          buildingInfo.oneFloorHeight <= 12)
-        ||
-        (buildingInfo.underground <= 1 && _class === 1)
-        ||
-        (buildingInfo.underground <= 1 && _class === 2)
-        ||
-        (buildingInfo.underground <= 1 && _class === 3)
-        ||
-        (buildingInfo.underground <= 1 && _class === 1 && buildingInfo.aboveground <= 2)
-      ) {
-        return categ.KAT1;
-      }
-
-    }
-
-    if(buildingSpecification.complex || buildingSpecification.waterSource){
-      return categ.KAT1
-    }
-
     if(
-      buildingSpecification.culturalBuilding ||
-      buildingSpecification.flammableLiquids.value >= 5 ||
-      buildingSpecification.flammableGas.value >= 600 ||
-      buildingSpecification.gasTank.value >= 5 ||
-      buildingSpecification.pyrotechnic ||
-      (buildingSpecification.toxic && (buildingSpecification.bigTanks.category1 >= 100 || buildingSpecification.bigTanks.category2 >= 1000)) ||
-      buildingSpecification.shelter ||
-      buildingInfo.area === 0 ||
-      buildingSpecification.projPeople > 100 ||
-      buildingSpecification.highwayTunnel.value > 100
-    ){
-      return categ.KAT2
-    }
-
-
-    if(
-      (buildingInfo.buildingHeight >= 22.5 && (_class === 4 || _class === 5)) ||
-      // --------------------------------------------------------------------class 3?
-      (buildingInfo.buildingHeight >= 45 && (_class === 1 || _class === 2 || _class === 3)) ||
-      (buildingInfo.buildingHeight >= 6 && _class === 5) ||
-      buildingInfo.underground >= 3 ||
-      buildingSpecification.projPeople >= 1000 ||
-      buildingInfo.assistancePeople >= 100 ||
-      //---------------------Velkoobjemove kapaliny?
-      (buildingSpecification.bigTanks.category2 + buildingSpecification.bigTanks.category1) >= 5000 ||
-      buildingSpecification.highwayTunnel.value >= 1000 ||
+      (buildingInfo.buildingHeight > 22.5 && (_class === 4 || _class === 5)) ||
+      (buildingInfo.buildingHeight > 45 && (_class === 1 || _class === 2 || _class === 3)) ||
+      (buildingInfo.buildingHeight > 6 && _class === 5 && buildingInfo.assistancePeople > 10) ||
+      buildingInfo.underground > 2 ||
+      buildingSpecification.projPeople > 1000 ||
+      buildingSpecification.livingPeople > 1000 ||
+      buildingInfo.assistancePeople > 100 ||
+      buildingSpecification.bigTanks.value > 5000 ||
+      buildingSpecification.highwayTunnel.value > 1000 ||
       buildingSpecification.metro ||
       buildingSpecification.explosives ||
-      buildingSpecification.ammunition.value >= 200000
+      buildingSpecification.ammunition.value > 200000
     ){
       return categ.KAT3
     }
 
-    return 1
+    if(
+      buildingSpecification.culturalBuilding ||
+      buildingSpecification.flammableLiquids.value > 5 ||
+      buildingSpecification.flammableGas.value > 600 ||
+      buildingSpecification.gasTank.value > 5 ||
+      buildingSpecification.pyrotechnic ||
+      (buildingSpecification.toxicTanks.present && (buildingSpecification.toxicTanks.category1 > 100 || buildingSpecification.toxicTanks.category2 > 1000)) ||
+      buildingSpecification.shelter
+    ){
+      return categ.KAT2
+    }
+
+    if(buildingInfo.buildingHeight <= 9
+      && (buildingSpecification.projPeople <= 100 || buildingSpecification.forLiving)
+      && (
+        buildingInfo.area <= 200
+        ||
+        buildingInfo.area <= 500 && _class === 1 && buildingInfo.underground <= 1 && buildingInfo.aboveground <= 2
+        ||
+        buildingInfo.area <= 600 && _class === 2 && buildingInfo.oneFloorHeight <= 12 && buildingInfo.aboveground === 1
+        ||
+        buildingInfo.area <= 800 && buildingSpecification.forLiving
+        ||
+        buildingInfo.area <= 1000 && _class === 1 && buildingInfo.aboveground === 1 && buildingInfo.oneFloorHeight <= 12
+      )
+      && buildingInfo.underground <= 1
+      && (_class === 1 || _class === 2 || _class === 3 || (_class === 4 && buildingInfo.aboveground <= 2 && buildingSpecification.projPeople <= 20))
+    ){
+      return categ.KAT1
+    }
+
+    if(
+      (buildingSpecification.highwayTunnel.present && buildingSpecification.highwayTunnel.value <= 100)
+      ||
+      (buildingSpecification.waterSource)
+      ||
+      (buildingSpecification.communication)
+      ||
+      (buildingSpecification.complex)
+    ){
+      return categ.KAT1
+    }
+    return 2
   };
 
   return (
