@@ -3,6 +3,7 @@ import PNP from "~/pages/pnp/PNP";
 import Home from "~/pages/home/Home";
 import Category from "~/pages/category/Category";
 import Header from "~/pages/header/Header";
+import About from "~/pages/about/About";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/category" element={<Category/>}/>
         <Route path="/pnp" element={<PNP/>}/>
+        <Route path='/about' element={<About/>}/>
       </Routes>
 
     </BrowserRouter>)

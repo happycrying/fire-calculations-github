@@ -112,33 +112,69 @@ const PNP = () => {
 
   return (
     <div className='flex flex-col w-[80%] self-center mb-7'>
-      <div className='z-1 fixed right-0 top-[30vh] w-[20vw] h-[28vh] bg-white border-black border-2'>
-        <p className='3xl:text-5xl text-2xl p-2'>d = {Math.floor(results.d_prima * 100) / 100}</p>
-        <p className='3xl:text-5xl text-2xl p-2'>
-          d' = {Math.floor(results.d_bocni * 100 * 2) / 100}
-        </p>
-        <p className='3xl:text-5xl text-2xl p-2'>
-          d'<sub>s</sub> = {Math.floor(results.d_bocni * 100) / 100}
-        </p>
-        <PDFDownloadLink
-          document={<PnpPDF {...parameters} {...results} {...basicInfo} pvEdit={pvEdit} />}
-          fileName='Pnp'
-        >
-          {({ loading }) =>
-            loading ? (
-              <button
-                className='ml-[20%] text-2xl border-2 rounded-xl p-2 border-black'
-                disabled={true}
+      <div className='z-1 fixed right-0 top-[30vh] '>
+        <div className={'w-[350px] h-fit rounded-xl bg-[#fff] py-4 px-4 border-solid border-orange-500 border-[1px] flex flex-col gap-2'}>
+          <h1 className={'text-[30px] font-[500] text-[#000] mb-4'}>
+            Výsledky:
+          </h1>
+          <div className={'flex flex-col gap-5 w-[95%]'}>
+            <div className={'flex gap-3 justify-between items-center'}>
+              <h2 className={'text-[#000000] font-[500] text-[24px]'}>d</h2>
+              <div
+                className={
+                  'bg-[#fff] border-[1px] border-[#E7E7E7] border-solid flex items-center justify-center w-[80px] h-[33px] rounded-xl text-[#000] text-[24px] font-[500]'
+                }
               >
-                Loading PDF...
-              </button>
-            ) : (
-              <button className='ml-[20%] text-2xl border-2 rounded-xl p-2 border-black'>
-                Stáhnout PDF protokol
-              </button>
-            )
-          }
-        </PDFDownloadLink>
+                {Math.floor(results.d_prima * 100) / 100}
+              </div>
+            </div>
+          </div>
+
+          <div className={'flex flex-col gap-5 w-[95%]'}>
+            <div className={'flex gap-3 justify-between items-center'}>
+              <h2 className={'text-[#000000] font-[500] text-[24px]'}>d'</h2>
+              <div
+                className={
+                  'bg-[#fff] border-[1px] border-[#E7E7E7] border-solid flex items-center justify-center w-[80px] h-[33px] rounded-xl text-[#000] text-[24px] font-[500]'
+                }
+              >
+                {Math.floor(results.d_bocni * 100 * 2) / 100}
+              </div>
+            </div>
+          </div>
+
+          <div className={'flex flex-col gap-5 w-[95%]'}>
+            <div className={'flex gap-3 justify-between items-center'}>
+              <h2 className={'text-[#000000] font-[500] text-[24px]'}>d'<sub>s</sub></h2>
+              <div
+                className={
+                  'bg-[#fff] border-[1px] border-[#E7E7E7] border-solid flex items-center justify-center w-[80px] h-[33px] rounded-xl text-[#000] text-[24px] font-[500]'
+                }
+              >
+                {Math.floor(results.d_bocni * 100) / 100}
+              </div>
+            </div>
+          </div>
+          <PDFDownloadLink
+            document={<PnpPDF {...parameters} {...results} {...basicInfo} pvEdit={pvEdit} />}
+            fileName='Pnp'
+          >
+            {({ loading }) =>
+              loading ? (
+                <button
+                  className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2 disabled:bg-gray-100'
+                  disabled={true}
+                >
+                  Loading PDF...
+                </button>
+              ) : (
+                <button className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2'>
+                  Stáhnout PDF protokol
+                </button>
+              )
+            }
+          </PDFDownloadLink>
+        </div>
       </div>
 
       {/*--Základní údaje o zakázce--*/}
@@ -156,7 +192,7 @@ const PNP = () => {
               type='text'
               id='nazev_akce'
               onChange={(e) => setBasicInfo({ ...basicInfo, name: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               required
             />
           </div>
@@ -171,7 +207,7 @@ const PNP = () => {
               type='text'
               id='place'
               onChange={(e) => setBasicInfo({ ...basicInfo, place: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               required
             />
           </div>
@@ -186,7 +222,7 @@ const PNP = () => {
               type='text'
               id='investor'
               onChange={(e) => setBasicInfo({ ...basicInfo, investor: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               required
             />
           </div>
@@ -201,7 +237,7 @@ const PNP = () => {
               type='text'
               id='windowName'
               onChange={(e) => setBasicInfo({ ...basicInfo, windowName: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               required
             />
           </div>
@@ -209,8 +245,8 @@ const PNP = () => {
       </form>
       {/*----------------------------*/}
 
-      <h2 className='text-3xl font-extrabold border-b-2 pb-2 mb-2 pt-4'>Parametry otvoru</h2>
-      <div className='flex items-center gap-3 border-b-[1px] pb-2 mb-4'>
+      <h2 className='text-3xl font-extrabold pb-2 mb-2 pt-4'>Parametry otvoru</h2>
+      <div className='flex items-center gap-3 border-b-[1px] border-orange-500 pb-2 mb-4'>
         <input
           type='number'
           id='pv'
@@ -226,7 +262,7 @@ const PNP = () => {
           {pnpDescriptions.short['pV']}
         </label>
       </div>
-      <div className='flex items-center gap-3 border-b-[1px] pb-2 mb-4'>
+      <div className='flex items-center gap-3 border-b-[1px] border-orange-500 pb-2 mb-4'>
         <input
           type='number'
           id='width'
@@ -242,7 +278,7 @@ const PNP = () => {
           {pnpDescriptions.short['width']}
         </label>
       </div>
-      <div className='flex items-center gap-3 border-b-[1px] pb-2 mb-4'>
+      <div className='flex items-center gap-3 border-b-[1px] border-orange-500 pb-2 mb-4'>
         <input
           type='number'
           id='height'
@@ -258,7 +294,7 @@ const PNP = () => {
           {pnpDescriptions.short['height']}
         </label>
       </div>
-      <div className='flex items-center gap-3 border-b-[1px] pb-2 mb-4'>
+      <div className='flex items-center gap-3 border-b-[1px] border-orange-500 pb-2 mb-4'>
         <input
           type='number'
           id='openness'
@@ -274,7 +310,7 @@ const PNP = () => {
           {pnpDescriptions.short['p0']}
         </label>
       </div>
-      <div className='flex items-center gap-3 border-b-[1px] pb-2 mb-4'>
+      <div className='flex items-center gap-3 border-b-[1px] border-orange-500 pb-2 mb-4'>
         <select
           id='system'
           onChange={(e) =>
@@ -293,7 +329,7 @@ const PNP = () => {
           {pnpDescriptions.short['system']}
         </label>
       </div>
-      <div className='flex items-center gap-3 border-b-[1px] pb-2 mb-4'>
+      <div className='flex items-center gap-3 border-b-[1px] border-orange-500 pb-2 mb-4'>
         <select
           id='critValue'
           onChange={(e) =>

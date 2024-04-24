@@ -167,7 +167,7 @@ const Category = () => {
                 [name as keyof typeof buildingSpecification]: +e.target.value,
               })}
             }
-            className={`bg-gray-50 border-gray-300 border w-[10%] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
+            className={`bg-gray-50 border-orange-500 border w-[10%] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
             required
           />
           osob
@@ -228,8 +228,8 @@ const Category = () => {
               }
               className={`${
                 convertToPresentValueType(name).present
-                  ? 'bg-gray-50 border-gray-300'
-                  : 'bg-gray-400 border-gray-300'
+                  ? 'bg-gray-50 border-orange-500'
+                  : 'bg-orange-100 border-orange-500'
               } border w-[10%] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
               required
               disabled={!convertToPresentValueType(name).present}
@@ -272,8 +272,8 @@ const Category = () => {
                   }
                   className={`${
                     convertToToxicTanksType(name).present
-                      ? 'bg-gray-50 border-gray-300'
-                      : 'bg-gray-400 border-gray-300'
+                      ? 'bg-gray-50 border-orange-500'
+                      : 'bg-orange-100 border-orange-500'
                   } border w-1/2 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
                   required
                   disabled={!convertToToxicTanksType(name).present}
@@ -296,8 +296,8 @@ const Category = () => {
                   }
                   className={`${
                     convertToToxicTanksType(name).present
-                      ? 'bg-gray-50 border-gray-300'
-                      : 'bg-gray-400 border-gray-300'
+                      ? 'bg-gray-50 border-orange-500'
+                      : 'bg-orange-100 border-orange-500'
                   } border w-1/2 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
                   required
                   disabled={!convertToToxicTanksType(name).present}
@@ -417,21 +417,58 @@ const Category = () => {
 
   return (
     <div className='flex flex-col w-[80%] self-center mb-7'>
-      <div className='z-1 fixed right-0 top-[30vh] w-[20vw] h-[20vh] bg-white border-black border-2'>
-        <p className='3xl:text-5xl text-2xl p-2'>
-          Třída využití: {_class !== -1 ? _class : '---'}
-        </p>
-        <p className='3xl:text-5xl text-2xl p-2'>Kategorie {category}</p>
-        <PDFDownloadLink document={<CategoryPDF {...categoryZeroInputs} {...buildingInfo} {...basicInfo} {...buildingSpecification} _class={_class} category={category}/>} fileName="Classification">
-          {({loading}) =>
-            (loading
-                ? <button className="ml-[20%] text-2xl border-2 rounded-xl p-2 border-black" disabled={true}>Loading PDF...</button>
-                : <button className="ml-[20%] text-2xl border-2 rounded-xl p-2 border-black">Stáhnout PDF protokol</button>
-            )
-          }
-        </PDFDownloadLink>
-      </div>
+      <div className='z-1 fixed right-0 top-[30vh] '>
+        <div
+          className={'w-[350px] h-fit rounded-xl bg-[#fff] py-4 px-4 border-solid border-orange-500 border-[1px] flex flex-col gap-2'}>
+          <h1 className={'text-[30px] font-[500] text-[#000] mb-4'}>
+            Výsledky:
+          </h1>
+          <div className={'flex flex-col gap-5 w-[95%]'}>
+            <div className={'flex gap-3 justify-between items-center'}>
+              <h2 className={'text-[#000000] font-[500] text-[24px]'}>Třída využití</h2>
+              <div
+                className={
+                  'bg-[#fff] border-[1px] border-[#E7E7E7] border-solid flex items-center justify-center w-[80px] h-[33px] rounded-xl text-[#000] text-[24px] font-[500]'
+                }
+              >
+                {_class !== -1 ? _class : '---'}
+              </div>
+            </div>
+          </div>
 
+          <div className={'flex flex-col gap-5 w-[95%]'}>
+            <div className={'flex gap-3 justify-between items-center'}>
+              <h2 className={'text-[#000000] font-[500] text-[24px]'}>Kategorie</h2>
+              <div
+                className={
+                  'bg-[#fff] border-[1px] border-[#E7E7E7] border-solid flex items-center justify-center w-[80px] h-[33px] rounded-xl text-[#000] text-[24px] font-[500]'
+                }
+              >
+                {category}
+              </div>
+            </div>
+          </div>
+          <PDFDownloadLink
+            document={<CategoryPDF {...categoryZeroInputs} {...buildingInfo} {...basicInfo} {...buildingSpecification}
+                                   _class={_class} category={category} />} fileName="Classification">
+            {({ loading }) =>
+              loading ? (
+                <button
+                  className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2 disabled:bg-gray-100'
+                  disabled={true}
+                >
+                  Loading PDF...
+                </button>
+              ) : (
+                <button
+                  className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2'>
+                  Stáhnout PDF protokol
+                </button>
+              )
+            }
+          </PDFDownloadLink>
+        </div>
+      </div>
       {/*--Základní údaje o zakázce--*/}
       <h2 className='text-3xl font-extrabold border-b-2 pb-2 mb-2'>Základní údaje o zakázce</h2>
       <form>
@@ -447,7 +484,7 @@ const Category = () => {
               type='text'
               id='nazev_akce'
               onChange={(e) => setBasicInfo({ ...basicInfo, name: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
               required
             />
           </div>
@@ -462,7 +499,7 @@ const Category = () => {
               type='text'
               id='last_name'
               onChange={(e) => setBasicInfo({ ...basicInfo, place: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
               required
             />
           </div>
@@ -477,7 +514,7 @@ const Category = () => {
               type='text'
               id='last_name'
               onChange={(e) => setBasicInfo({ ...basicInfo, investor: e.target.value })}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               required
             />
           </div>
@@ -547,8 +584,8 @@ const Category = () => {
                 }
                 className={`${
                   isFieldDisabled(name)
-                    ? 'bg-gray-400 border-gray-300'
-                    : 'bg-gray-50 border-gray-300'
+                    ? 'bg-orange-100 border-orange-500'
+                    : 'bg-gray-50 border-orange-500'
                 } border w-[10%] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
                 required
                 disabled={isFieldDisabled(name)}
