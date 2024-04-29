@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from "react-router";
+import { BiRightArrow } from "react-icons/bi";
 
 const About = () => {
   const navigate = useNavigate()
   return (
-    <div className={'w-[80%] self-center'}>
+    <div className={'w-[90%] sm:w-[80%] self-center'}>
       <div className=' text-xl w-full pt-8 pl-8 pb-6 self-center items-center flex flex-col'>
         <div className={'w-fit bg-[#F5F5F5] p-5 pb-10 shadow-[0_7px_20px_0px_#00000026] mb-2 cursor-pointer rounded-xl'} onClick={() => navigate('/category')}>
-          <h2 className={'font-[800] text-2xl mb-5'}>Výpočet třídy a kategorii budovy</h2>
+          <h2 className={'font-[800] text-2xl mb-5 flex gap-3 items-center'}>Výpočet třídy a kategorii budovy <BiRightArrow/></h2>
           <p>
             Tento web poskytuje klíčové nástroje pro výpočty požární bezpečnosti. Naše platforma
             umožňuje rychle a snadno spočítat třídu a kategorii budovy podle platných požárních
@@ -17,8 +18,8 @@ const About = () => {
           </p>
         </div>
         <div className={'w-fit bg-[#F5F5F5] p-5 pb-10 shadow-[0_7px_20px_0px_#00000026] mb-2 cursor-pointer rounded-xl'}  onClick={() => navigate('/pnp')}>
-          <h2 className={'font-[600] text-2xl mb-5'}>
-            Výpočet požárně nebezpečného prostoru otvorů
+          <h2 className={'font-[600] text-2xl mb-5 flex gap-3 items-center'}>
+            Výpočet požárně nebezpečného prostoru otvorů <BiRightArrow/>
           </h2>
           <p>
             Další klíčovou funkcí naší stránky je schopnost vypočítat požárně nebezpečné prostory

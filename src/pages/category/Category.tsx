@@ -158,40 +158,44 @@ const Category = () => {
     if (typeof buildingSpecification[name as keyof typeof buildingSpecification] === 'number') {
       return (
         <>
-          <input
-            type='number'
-            id={name}
-            onChange={(e) => {
-              setBuildingSpecification({
-                ...buildingSpecification,
-                [name as keyof typeof buildingSpecification]: +e.target.value,
-              })}
-            }
-            className={`bg-gray-50 border-orange-500 border w-[10%] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
-            required
-          />
-          osob
-          <span className={`block mb-2 text-xl font-semibold text-gray-900`}>
+          <div className={"flex flex-col gap-1"}>
+            <span className={`block mb-2 text-xl font-semibold text-gray-900`}>
             {categoryDescriptions.full[name as keyof typeof buildingSpecification]}
           </span>
+            <div className={'flex items-center gap-1'}>
+              <input
+                type="number"
+                id={name}
+                onChange={(e) => {
+                  setBuildingSpecification({
+                    ...buildingSpecification,
+                    [name as keyof typeof buildingSpecification]: +e.target.value
+                  });
+                }}
+                className={`bg-gray-50 border-orange-500 border w-[200px] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
+                required
+              />
+              osob
+            </div>
+          </div>
         </>
       );
     } else if (
-      typeof buildingSpecification[name as keyof typeof buildingSpecification] === 'boolean'
+      typeof buildingSpecification[name as keyof typeof buildingSpecification] === "boolean"
     ) {
       return (
         <>
-          <Switch
+        <Switch
             isOn={buildingSpecification[name as keyof typeof buildingSpecification] as boolean}
             handleToggle={() =>
               setBuildingSpecification({
                 ...buildingSpecification,
                 [name as keyof typeof buildingSpecification]:
-                  !buildingSpecification[name as keyof typeof buildingSpecification],
+                  !buildingSpecification[name as keyof typeof buildingSpecification]
               })
             }
           />
-          <span className='text-xl font-bold mr-5'>
+          <span className="text-xl font-bold mr-5">
             {categoryDescriptions.short[name as keyof typeof buildingSpecification]}
           </span>
         </>
@@ -214,29 +218,32 @@ const Category = () => {
                 })
               }
             />
-            <input
-              type='number'
-              id={name}
-              onChange={(e) =>
-                setBuildingSpecification({
-                  ...buildingSpecification,
-                  [name as keyof typeof buildingSpecification]: {
-                    present: convertToPresentValueType(name).present,
-                    value: e.target.value,
-                  },
-                })
-              }
-              className={`${
-                convertToPresentValueType(name).present
-                  ? 'bg-gray-50 border-orange-500'
-                  : 'bg-orange-100 border-orange-500'
-              } border w-[10%] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
-              required
-              disabled={!convertToPresentValueType(name).present}
-            />
-            <span className='text-xl font-bold mr-5'>
+            <div className={'flex flex-col gap-1'}>
+              <span className="text-xl font-bold mr-5">
               {categoryDescriptions.short[name as keyof typeof buildingSpecification]}
             </span>
+              <input
+                type="number"
+                id={name}
+                onChange={(e) =>
+                  setBuildingSpecification({
+                    ...buildingSpecification,
+                    [name as keyof typeof buildingSpecification]: {
+                      present: convertToPresentValueType(name).present,
+                      value: e.target.value
+                    }
+                  })
+                }
+                className={`${
+                  convertToPresentValueType(name).present
+                    ? "bg-gray-50 border-orange-500"
+                    : "bg-orange-100 border-orange-500"
+                } border w-[200px] text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
+                required
+                disabled={!convertToPresentValueType(name).present}
+              />
+            </div>
+
           </>
         );
       } else {
@@ -250,15 +257,15 @@ const Category = () => {
                   [name as keyof typeof buildingSpecification]: {
                     present: !convertToToxicTanksType(name).present,
                     category1: convertToToxicTanksType(name).category1,
-                    category2: convertToToxicTanksType(name).category2,
-                  },
+                    category2: convertToToxicTanksType(name).category2
+                  }
                 })
               }
             />
-            <div className='flex flex-col h-full w-[20%]'>
-              <div className='flex flex-row items-center gap-2 mb-2'>
+            <div className="flex flex-col h-full w-[20%]">
+              <div className="flex flex-row items-center gap-2 mb-2">
                 <input
-                  type='number'
+                  type="number"
                   id={name}
                   onChange={(e) =>
                     setBuildingSpecification({
@@ -417,12 +424,12 @@ const Category = () => {
 
   return (
     <div className='flex flex-col w-[80%] self-center mb-7'>
-      <div className='z-1 fixed right-0 top-[30vh] '>
+      <div className='z-1 hidden sm:block fixed right-0 top-[30vh] '>
         <div
-          className={'w-[350px] h-fit rounded-xl bg-[#fff] py-4 px-4 border-solid border-orange-500 border-[1px] flex flex-col gap-2'}>
-          <h1 className={'text-[30px] font-[500] text-[#000] mb-4'}>
-            Výsledky:
-          </h1>
+          className={
+            'w-[350px] h-fit rounded-xl bg-[#fff] py-4 px-4 border-solid border-orange-500 border-[1px] flex flex-col gap-2'
+          }
+        >
           <div className={'flex flex-col gap-5 w-[95%]'}>
             <div className={'flex gap-3 justify-between items-center'}>
               <h2 className={'text-[#000000] font-[500] text-[24px]'}>Třída využití</h2>
@@ -449,8 +456,18 @@ const Category = () => {
             </div>
           </div>
           <PDFDownloadLink
-            document={<CategoryPDF {...categoryZeroInputs} {...buildingInfo} {...basicInfo} {...buildingSpecification}
-                                   _class={_class} category={category} />} fileName="Classification">
+            document={
+              <CategoryPDF
+                {...categoryZeroInputs}
+                {...buildingInfo}
+                {...basicInfo}
+                {...buildingSpecification}
+                _class={_class}
+                category={category}
+              />
+            }
+            fileName='Classification'
+          >
             {({ loading }) =>
               loading ? (
                 <button
@@ -460,8 +477,7 @@ const Category = () => {
                   Loading PDF...
                 </button>
               ) : (
-                <button
-                  className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2'>
+                <button className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2'>
                   Stáhnout PDF protokol
                 </button>
               )
@@ -476,7 +492,7 @@ const Category = () => {
           <div>
             <label
               htmlFor='nazev_akce'
-              className='block mb-2 text-sm font-semibold text-gray-900 dark:text-white'
+              className='block mb-2 text-[20px] font-semibold text-gray-900 dark:text-white'
             >
               Název akce
             </label>
@@ -484,29 +500,26 @@ const Category = () => {
               type='text'
               id='nazev_akce'
               onChange={(e) => setBasicInfo({ ...basicInfo, name: e.target.value })}
-              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-[20px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
               required
             />
           </div>
           <div>
-            <label
-              htmlFor='last_name'
-              className='block mb-2 text-sm font-semibold text-gray-900'
-            >
+            <label htmlFor='last_name' className='block mb-2 text-[20px] font-semibold text-gray-900'>
               Místo akce
             </label>
             <input
               type='text'
               id='last_name'
               onChange={(e) => setBasicInfo({ ...basicInfo, place: e.target.value })}
-              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-[20px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
               required
             />
           </div>
           <div>
             <label
               htmlFor='last_name'
-              className='block mb-2 text-sm font-semibold text-gray-900 dark:text-white'
+              className='block mb-2 text-[20px] font-semibold text-gray-900 dark:text-white'
             >
               Investor
             </label>
@@ -514,7 +527,7 @@ const Category = () => {
               type='text'
               id='last_name'
               onChange={(e) => setBasicInfo({ ...basicInfo, investor: e.target.value })}
-              className='bg-gray-50 border border-orange-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='bg-gray-50 border border-orange-500 text-gray-900 text-[20px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
               required
             />
           </div>
@@ -540,12 +553,14 @@ const Category = () => {
             {categoryDescriptions.short[name as keyof typeof categoryZeroInputs]}
           </span>
           <Tooltip
-            className='rounded-none text-m'
+            className='rounded-none text-m justify-self-end'
             content={categoryDescriptions.full[name as keyof typeof categoryZeroInputs]}
             style='light'
             animation='duration-300'
           >
-            <Icon name='questionMark' size={30} />
+            <div className={'rounded-full border-orange-500 border-[1px]'}>
+              <Icon name='questionMark' size={20} />
+            </div>
           </Tooltip>
         </div>
       ))}
@@ -590,7 +605,7 @@ const Category = () => {
                 required
                 disabled={isFieldDisabled(name)}
               />
-              {name === 'area' || name === 'buildingHeight' ? 'm²' : <></>}
+              {name === 'area' ? 'm²' : name === 'buildingHeight' ? 'm' : <></>}
               <label htmlFor={name} className={`block mb-2 text-xl font-semibold text-gray-900`}>
                 {categoryDescriptions.full[name as keyof typeof buildingInfo]}
               </label>
@@ -602,7 +617,9 @@ const Category = () => {
             style='light'
             animation='duration-300'
           >
-            <Icon name='questionMark' size={30} />
+            <div className={'rounded-full border-orange-500 border-[1px]'}>
+              <Icon name='questionMark' size={20} />
+            </div>
           </Tooltip>
         </div>
       ))}
@@ -614,16 +631,73 @@ const Category = () => {
         <div className='flex items-center gap-3 border-b-[1px] pb-2 mb-4'>
           {generateInputFields(name)}
           <Tooltip
-            className='rounded-none text-m'
+            className='rounded-none text-m self-end'
             content={categoryDescriptions.full[name as keyof typeof buildingSpecification]}
             style='light'
             animation='duration-300'
           >
-            <Icon name='questionMark' size={30} />
+            <div className={'rounded-full border-orange-500 border-[1px]'}>
+              <Icon name='questionMark' size={20} />
+            </div>
           </Tooltip>
         </div>
       ))}
       {/*--------------------------------*/}
+      <div className={'w-full h-fit flex sm:hidden rounded-xl bg-[#fff] py-4 px-4 border-solid border-orange-500 border-[1px] flex-col gap-2'}>
+        <div className={'flex flex-col gap-5 w-[95%]'}>
+          <div className={'flex gap-3 justify-between items-center'}>
+            <h2 className={'text-[#000000] font-[500] text-[24px]'}>Třída využití</h2>
+            <div
+              className={
+                'bg-[#fff] border-[1px] border-[#E7E7E7] border-solid flex items-center justify-center w-[80px] h-[33px] rounded-xl text-[#000] text-[24px] font-[500]'
+              }
+            >
+              {_class !== -1 ? _class : '---'}
+            </div>
+          </div>
+        </div>
+
+        <div className={'flex flex-col gap-5 w-[95%]'}>
+          <div className={'flex gap-3 justify-between items-center'}>
+            <h2 className={'text-[#000000] font-[500] text-[24px]'}>Kategorie</h2>
+            <div
+              className={
+                'bg-[#fff] border-[1px] border-[#E7E7E7] border-solid flex items-center justify-center w-[80px] h-[33px] rounded-xl text-[#000] text-[24px] font-[500]'
+              }
+            >
+              {category}
+            </div>
+          </div>
+        </div>
+        <PDFDownloadLink
+          document={
+            <CategoryPDF
+              {...categoryZeroInputs}
+              {...buildingInfo}
+              {...basicInfo}
+              {...buildingSpecification}
+              _class={_class}
+              category={category}
+            />
+          }
+          fileName='Classification'
+        >
+          {({ loading }) =>
+            loading ? (
+              <button
+                className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2 disabled:bg-gray-100'
+                disabled={true}
+              >
+                Loading PDF...
+              </button>
+            ) : (
+              <button className='w-full rounded-xl text-[24px] bg-orange-400 border-solid border-[1px] border-[#000] p-2'>
+                Stáhnout PDF protokol
+              </button>
+            )
+          }
+        </PDFDownloadLink>
+      </div>
     </div>
   );
 };
