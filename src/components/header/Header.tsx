@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "src/assets/800px-CVUT_logo.webp"
+import logo from "~/assets/800px-CVUT_logo.webp"
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 

@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PNP from "~/pages/pnp/PNP";
 import Home from "~/pages/home/Home";
 import Category from "~/pages/category/Category";
-import Header from "~/pages/header/Header";
-import About from "~/pages/about/About";
+import Header from "~/components/header/Header";
+import About from "~/components/about/About";
 
 
 function App() {
