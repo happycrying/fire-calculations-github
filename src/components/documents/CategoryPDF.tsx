@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Font, Image } from '@react-pdf/renderer';
-import fontTex from '../../assets/fonts/texgyreschola-regular.otf';
-import fontTexBold from '../../assets/fonts/texgyreschola-bold.otf';
+import fontTex from '../../assets/fonts/Merriweather-Regular.ttf';
+import fontTexBold from '../../assets/fonts/Merriweather-Bold.ttf';
 import logo_fsv from '../../assets/logo_FSv_zkratka.jpg';
 import {
   IBasicInfo,

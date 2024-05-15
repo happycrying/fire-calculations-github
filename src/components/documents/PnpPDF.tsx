@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Font, Image } from "@react-pdf/renderer";
-import fontTex from "../../assets/fonts/texgyreschola-regular.otf"
-import fontTexBold from "../../assets/fonts/texgyreschola-bold.otf"
+import fontTex from "../../assets/fonts/Merriweather-Regular.ttf"
+import fontTexBold from "../../assets/fonts/Merriweather-Bold.ttf"
 import { IParameters, IResults } from "~/pages/pnp/PNP";
 import logo_fsv from '../../assets/logo_FSv_zkratka.jpg'
 import { IBasicInfo } from "~/pages/category/Category";
@@ -210,11 +210,11 @@ const PnpPDF = (props: IPnpPDFProps) => (
         <Text style={styles.tableTitle}>Výpočet</Text>
         <View style={styles.tableInner}>
           <View style={styles.resultSection}>
-            <Text style={{width:"15%"}}>Označení otvoru</Text>
+            <Text style={{width:"13%"}}>Označení otvoru</Text>
             <Text style={styles.resultImportant}>{props.windowName}</Text>
           </View>
           <View style={styles.resultSection}>
-            <Text style={{width:"8%"}}>q<Text style={styles.underText}>crit</Text> [kW/m&sup2; ]</Text>
+            <Text style={{width:"10%"}}>q<Text style={styles.underText}>crit</Text> [kW/m&sup2;] </Text>
             <Text style={styles.resultImportant}>{props.critValue}</Text>
           </View>
           <View style={styles.resultSection}>
