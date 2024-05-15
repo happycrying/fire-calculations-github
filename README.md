@@ -3,6 +3,8 @@
 University bachelor's degree project. The project is a web application that allows you to calculate category and class of a building and unsafe distance from windows. 
 The application is written in React.js and TypeScript. The application is deployed on the Vercel platform.
 
+Student username - **davydol1**.
+
 #### **Vercel Deploy: https://fire-calculations.vercel.app**
 
 ## **Using 📦**
