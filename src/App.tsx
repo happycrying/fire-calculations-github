@@ -8,7 +8,7 @@ import About from "~/components/about/About";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={"/fire-calculations-github/"}>
       <Header/>
 
       <Routes>
