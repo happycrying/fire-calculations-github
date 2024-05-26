@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     marginBottom:0,
     display:"flex",
     flexDirection:"row",
-    width: "70%",
+    width: "60%",
     gap: 10,
     fontFamily: "TeXBold",
     justifyContent: "center",
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     flexWrap:"wrap",
     alignContent:"flex-start",
     width:"100%",
-    gap:4
+    gap:5
   },
 });
 
@@ -243,20 +243,34 @@ const PnpPDF = (props: IPnpPDFProps) => (
           </View>
         </View>
       </View>
-      <Text style={{fontFamily: "TeXBold", width:"30%", fontSize: 10, marginLeft: 20}}>Používané symboly:</Text>
+        <Text style={{fontFamily: "TeXBold", width:"30%", fontSize: 10, marginLeft: 20}}>Používané symboly:</Text>
       <View style={styles.usedSymbols}>
-        <Text style={{width:"30%"}}>p<Text style={styles.underText}>v</Text> : výpočtové požární zatížení</Text>
-        <Text style={{width:"30%"}}>p'<Text style={styles.underText}>v</Text> : upravené výpočtové požární zatížen </Text>
-        <Text style={{width:"30%"}}>h : výška otvoru</Text>
-        <Text style={{width:"30%"}}>b : šířka otvoru</Text>
-        <Text style={{width:"30%"}}>p<Text style={styles.underText}>o</Text> : procento otevřenosti</Text>
-        <Text style={{width:"30%"}}>q<Text style={styles.underText}>crit</Text> : kritická hustota tepelného toku</Text>
-        <Text style={{width:"30%"}}>d : vzdálenost odstupové vzdálenosti v přímémsměru vestředu otvoru</Text>
-        <Text style={{width:"30%"}}>d': vzdálenost odstupové vzdálenosti v přímémsměru v kraji otvoru</Text>
-        <Text style={{width:"30%"}}>d'<Text style={styles.underText}>s</Text> : vzdálenost kolmé odstupové vzdálenosti v kraji otvoru
+        <Text style={{width:"40%"}}>p<Text style={styles.underText}>v</Text> : výpočtové požární zatížení</Text>
+        <Text style={{width:"40%"}}>p'<Text style={styles.underText}>v</Text> : upravené výpočtové požární zatížen </Text>
+        <Text style={{width:"40%"}}>h : výška otvoru</Text>
+        <Text style={{width:"40%"}}>b : šířka otvoru</Text>
+        <Text style={{width:"40%"}}>p<Text style={styles.underText}>o</Text> : procento otevřenosti</Text>
+        <Text style={{width:"40%"}}>q<Text style={styles.underText}>crit</Text> : kritická hustota tepelného toku</Text>
+        <Text style={{width:"50%"}}>d : vzdálenost odstupové vzdálenosti v přímémsměru vestředu otvoru</Text>
+        <Text style={{width:"50%"}}>d': vzdálenost odstupové vzdálenosti v přímémsměru v kraji otvoru</Text>
+        <Text style={{width:"50%"}}>d'<Text style={styles.underText}>s</Text> : vzdálenost kolmé odstupové vzdálenosti v kraji otvoru
         </Text>
       </View>
-
+      <Text style={{paddingLeft: '20px', fontSize: 10}}>
+        Protokol slouží jako studijní pomůcka pro studenty FSv ČVUT v Praze.
+        
+      </Text>
+      <Text style={{paddingLeft: '20px', fontSize: 10, marginBottom: 3}}>
+        Za správnost dat odpovídá zpracovatel protokolu, autoři nepřebírají za správnost dat žádnou odpovědnost.
+      </Text>
+      <Text style={{paddingLeft: '20px', fontSize: 8}}>
+        Autor: Oleh Davydov
+      </Text>
+      <Text style={{paddingLeft: '20px', fontSize: 8}}>
+        Korespondenční autor: Ing. Jakub Šejna, jakub.sejna@fsv.cvut.cz
+      </Text>
+      
+      
     </Page>
   </Document>
 );

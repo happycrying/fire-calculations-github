@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     display: 'flex',
     flexDirection: 'row',
-    width: '70%',
+    width: '60%',
     gap: 10,
     fontFamily: 'TeXBold',
     justifyContent: 'center',
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     borderRightWidth: "1px",
   },
   tableClassContentText: {
-    width: '80%',
+    width: '90%',
     justifyContent:"center",
     borderRightWidth: "1px",
     padding: 8
@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
   tableClassContentInput: {
     alignSelf:"center",
     justifyContent:"center",
-    width: '20%',
-    paddingLeft: 15
+    width: '10%',
+    paddingLeft: 5
   },
 
   tableKats: {
@@ -269,7 +269,7 @@ const CategoryPDF = (props: ICategoryPDFProps) => (
         <Text>
           Zákon č. 415/2021 Sb., Zákon, kterým se mění zákon č. 133/1985 Sb., o požární ochraně, ve
           znění pozdějších předpisů,a zákon č. 239/2000 Sb., o integrovaném záchranném systému a o
-          změně některých zákonů, veznění pozdějších předpisů
+          změně některých zákonů, ve znění pozdějších předpisů
         </Text>
         <Text>
           Vyhláškač. 460/2021 Sb., Vyhláška o kategorizaci staveb z hlediska požární bezpečnosti a
@@ -299,12 +299,12 @@ const CategoryPDF = (props: ICategoryPDFProps) => (
         <View style={styles.tableInnerClassification}>
           <View style={styles.tableSection}>
             <Text>
-              Předpokládaná kategorie stavby (podle § 39 odst. 2 zákona č. 133/1985 Sb.,):
+              Předpokládaná kategorie stavby (podle § 39 odst. 2 zákona 133/1985 Sb.,):
             </Text>
             <Text style={styles.tableImportant}>Kategorie {props.category}</Text>
           </View>
           <View style={styles.tableSection}>
-            <Text>Předpokládaná třída využití (podle § 5 odst. 3 vyhlášky č. 460/2021 Sb.,) :</Text>
+            <Text>Předpokládaná třída využití (podle § 5 odst. 3 vyhlášky 460/2021 Sb.,) :</Text>
             <Text style={styles.tableImportant}>Třída využití {props._class !== -1 ? props._class : 'nestanovuje se'}</Text>
           </View>
         </View>
@@ -634,7 +634,20 @@ const CategoryPDF = (props: ICategoryPDFProps) => (
           </View>
         </View>
       </View>
-
+      
+      <Text style={{paddingLeft: '20px', fontSize: 10}}>
+        Protokol slouží jako studijní pomůcka pro studenty FSv ČVUT v Praze.
+      
+      </Text>
+      <Text style={{paddingLeft: '20px', fontSize: 10, marginBottom: 3}}>
+        Za správnost dat odpovídá zpracovatel protokolu, autoři nepřebírají za správnost dat žádnou odpovědnost.
+      </Text>
+      <Text style={{paddingLeft: '20px', fontSize: 8}}>
+        Autor: Oleh Davydov
+      </Text>
+      <Text style={{paddingLeft: '20px', fontSize: 8}}>
+        Korespondenční autor: Ing. Jakub Šejna, jakub.sejna@fsv.cvut.cz
+      </Text>
     </Page>
   </Document>
 );
